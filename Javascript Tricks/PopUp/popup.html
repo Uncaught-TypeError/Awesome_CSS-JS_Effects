@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn{
+            padding: 10px;
+            width: 100px;
+            height: 50px;
+        }
+        .popup{
+            background: lightblue;
+            width: 400px;
+            height: 700px;
+            border-radius: 6px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%)scale(0.1);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            visibility: hidden;
+            transition: transform 0.4s;
+        }
+
+        .open-popup{
+            visibility: visible;
+            transform: translate(-50%,-50%)scale(1);
+        }
+    </style>
+</head>
+<body>
+    <button type="submit" class="btn" onclick="openPopup()">Click Me</button>
+    <div class="popup" id="popup">
+        <span>Hello</span>
+        <button type="button" class="btn" onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        var popup = document.getElementById("popup");
+        function openPopup(){
+            popup.classList.add("open-popup");
+        }
+        function closePopup(){
+            popup.classList.remove("open-popup");
+        }
+    </script>
+</body>
+</html>

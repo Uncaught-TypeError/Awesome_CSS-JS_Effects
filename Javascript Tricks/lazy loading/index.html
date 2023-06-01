@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div>
+        <div class="wrapper">
+            <div class="cards">
+                <div class="card">
+                    <img src="https://picsum.photos/200" alt="">
+                    <h1 class="cardtitle">I am a post.</h1>
+                </div>
+                <div class="loading">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var cards = document.querySelector(".cards");
+        var loading = document.querySelector(".loading");
+        var page=0;
+        var size=5;
+        var posts;
+        var posts = [];
+        window.onload = function(){
+            getData();
+        };
+        function getData(){
+            loading.style.display = "flex";
+            fetch(`https://api.instantwebtools.net/v1/passenger?page=${page}&size=${size}`,{
+                method: "GET",
+            }).then((data)=>{
+                return data.json();
+            }).then((res)=>{
+                posts =  res.data;
+                if(posts.length > 0){
+                    loading.style.display = "none";
+                    posts.map((item)=>{
+                        let cardItem = `<div class="card">
+                                            <img src="https://picsum.photos/200" alt="">
+                                            <h1 class="cardtitle">I am a post.</h1>
+                                        </div>`;
+                        cards.insertAdjacentHTML("beforeend", cardItem);
+                    })
+                }
+            });
+        }
+
+        function getNewData(){
+            setTimeout(()=>{
+                page = page + 1;
+                getData();
+            },500)
+        }
+        window.onscroll = function(){
+            const {scrollTop, scrollHeight, clientHeight} =
+            document.documentElement;
+            if(scrollTop+clientHeight >= scrollHeight){
+                getNewData();
+            } 
+        };
+    </script>
+</body>
+</html>
